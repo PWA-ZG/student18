@@ -1,0 +1,23 @@
+{
+    "name":"WEB - 5. labos",
+    "short_name": "PWA Web Page",
+    "description":"Funcionality of service workers",
+    "display": "fullscreen",
+    "theme_color": "blue",
+    "start_url": "/index.html",
+    "prefer_related_applications": true,
+    "related_applications": [
+      {
+        "platform": "football",
+        "id": "someID"
+      }
+    ],
+    "icons":[
+        {
+            "src":"assets/football.png",
+            "sizes":"192x192",
+            "type": "image/png",
+            "purpose":"any"
+        }
+    ]
+}

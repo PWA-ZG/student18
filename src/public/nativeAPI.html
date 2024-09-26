@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PWA</title>
+    <link rel="stylesheet" href="./assets/index.css">
+    <link rel="manifest" href="./manifest.json">
+  </head>
+  
+  <body>
+    <div class="header">
+
+      <div>
+        <a href="pictures.html"><button>See best football pictures</button></a>
+      </div>
+      <div>
+        <h3>Take a picture of your best football</h3>
+      </div>
+      <div class="logo-wrapper">
+        <img src="./assets/football.png" alt="Football logo" />
+      </div>
+    </div>
+
+    <div id="recordDiv">
+        <button id ="record">Record</button>
+    </div>
+    <div id="snapDiv">
+        <button id ="snap">Snap</button>
+    </div>
+    <div class="screen">
+        <video id="player" width="100%" autoplay></video>
+    </div>
+
+    <script>
+        document.getElementById("record").addEventListener("click", async (event) => {
+            let player = document.getElementById("player");
+            let record = document.getElementById("record");
+            record.style.visibility = "hidden"
+            let snap = document.getElementById("snap");
+            snap.style.visibility = "visible"
+            if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+                navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+                            player.srcObject = stream;
+                        })
+            }
+        })
+
+        document.getElementById("snap").addEventListener("click", async (event) => {
+            let player = document.getElementById("player");
+            let snap = document.getElementById("snap");
+            snap.style.visibility = "hidden"
+            let record = document.getElementById("record");
+            record.style.visibility = "visible"
+            player.srcObject.getVideoTracks().forEach(function (track) {
+                track.stop();
+            });
+        })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PWA</title>
+    <link rel="stylesheet" href="./assets/index.css">
+    <link rel="manifest" href="./manifest.json">
+    <script type="text/javascript" src="sw.js"></script>
+  </head>
+  
+  <body>
+    <div class="header">
+      <div>
+        <a href="index.html"><button>Go to upload page</button></a>
+      </div>
+
+      <div>
+        <h3>These are best looking footballs everybody sent</h3>
+      </div>
+
+      <div class="logo-wrapper">
+        <img src="./assets/football.png" alt="Football logo" />
+      </div>
+    </div>
+
+    <div class="allPictures">
+      <div id="upload">
+
+    </div>
+  </div>
+    <script>
+      navigator.serviceWorker.register('./sw.js', {type: 'module'})
+      .then(reg => console.log('SW registered!', reg))
+      .catch(err => console.error('Error registering service worker', err));
+
+        fetch("/uploads", {method:"GET"})
+        .then((res) => {
+          if (res.ok) {
+            res.json()
+            .then((data) => {
+              data.files.forEach((fileName) => {
+                var img = document.createElement("img");
+                img.src = "./upload/" + fileName;
+                img.className = "image"
+
+                let upload = document.getElementById("upload")
+                upload.appendChild(img)
+               });
+             })
+           }
+        }).catch(err => {
+          console.log(err);
+        })
+    </script>
+  </body>
+</html>
